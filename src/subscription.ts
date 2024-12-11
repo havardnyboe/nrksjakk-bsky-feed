@@ -11,14 +11,19 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const ops = await getOpsByType(evt)
 
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
+    const regex = /\b(nrk[s]*.*?sjakk\w*)\b/
+
     const postsToCreate = ops.posts.creates
       .filter((create) => {
-        // only nrksjakk-related posts
-        const isNrksjakkPost = create.record.text
-          .toLowerCase()
-          .includes('nrksjakk')
+        const text = create.record.text.toLowerCase()
+        const altText = Array.isArray(create.record.embed?.images)
+          ? create.record.embed.images.map((img) => img.alt).join(' ')
+          : ''
+
+        // Check if either text or altText matches the pattern
+        const isNrksjakkPost = regex.test(text) || regex.test(altText)
         if (isNrksjakkPost) {
-          console.log(`Found nrksjakk post: ${create.record.text}`)
+          console.log(`Found nrksjakk-related post: ${text || altText}`)
         }
         return isNrksjakkPost
       })

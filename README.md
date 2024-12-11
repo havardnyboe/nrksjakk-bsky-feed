@@ -1,6 +1,6 @@
 # NRK Sjakk
 
-En enkel implementasjon av [bluesky-social/feed-generator](https://github.com/bluesky-social/feed-generator) som lytter etter poster med `nrksjakk` og lagrer disse i en sqlite database.
+En enkel implementasjon av [bluesky-social/feed-generator](https://github.com/bluesky-social/feed-generator) som lytter etter poster som matcher regexen `\b(nrk[s]*.*?sjakk\w*)\b` og lagrer disse i en sqlite database.
 
 ## Lokalt oppsett
 
