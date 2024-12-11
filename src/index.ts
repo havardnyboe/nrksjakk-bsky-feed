@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import FeedGenerator from './server'
+import { log } from './util/logger'
 
 const run = async () => {
   dotenv.config()
@@ -21,7 +22,7 @@ const run = async () => {
     serviceDid,
   })
   await server.start()
-  console.log(
+  log.info(
     `🤖 running feed generator at http://${server.cfg.listenhost}:${server.cfg.port}`,
   )
 }

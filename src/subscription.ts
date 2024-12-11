@@ -3,6 +3,7 @@ import {
   isCommit,
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
+import { log } from './util/logger'
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
@@ -23,7 +24,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
         // Check if either text or altText matches the pattern
         const isNrksjakkPost = regex.test(text) || regex.test(altText)
         if (isNrksjakkPost) {
-          console.log(`Found nrksjakk-related post: ${text || altText}`)
+          log.info(`Found nrksjakk-related post: ${text || altText}`)
         }
         return isNrksjakkPost
       })
